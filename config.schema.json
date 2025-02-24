@@ -6,6 +6,12 @@
   "footerDisplay": "For documentation please see https://github.com/agilisone/homebridge-leridian-dynamics",
   "strictValidation": false,
   "schema": {
+    "name": {
+      "description": "Plugin name as displayed in the Homebridge log.",
+      "type": "string",
+      "required": true,
+      "default": "homebridge-leridian-dynamics"
+    },
     "devices": {
       "title": "Added Devices",
       "required": true,
