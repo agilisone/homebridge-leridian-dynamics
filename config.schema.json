@@ -6,57 +6,60 @@
   "footerDisplay": "For documentation please see https://github.com/agilisone/homebridge-leridian-dynamics",
   "strictValidation": false,
   "schema": {
-    "name": {
-      "description": "Plugin name as displayed in the Homebridge log.",
-      "type": "string",
-      "required": true,
-      "default": "homebridge-leridian-dynamics"
-    },
-    "devices": {
-      "title": "Added Devices",
-      "required": true,
-      "type": "array",
-      "items": {
-        "name": "Device Config",
-        "type": "object",
-        "properties": {
-          "name": {
-            "title": "Name",
-            "description": "The name of the accessory in HomeKit. For example, \"Hot Water Recirculation\" is On or Off",
-            "type": "string",
-            "required": true,
-            "default": "Hot Water Recirculation"
-          },
-          "deviceUid": {
-            "title": "Unique ID",
-            "description": "A unique ID assigned to this device.",
-            "type": "string",
-            "required": true,
-            "default": "123456789"
-          },
-          "controllerName": {
-            "title": "Controller Name",
-            "description": "The name of the controller as it appears in the \"Smart Recirc 32\" app.",
-            "type": "string",
-            "required": true,
-            "default": "SmartCirc"
-          },
-          "serverConfig": {
-            "title": "Server Configuration",
-            "description": "This is the configuration to use when listening to requests from the controller. This must match \"Webhook Outbound\" under Advanced Settings in the \"Smart Recirc 32 app\".",
-            "type": "object",
-            "properties": {          
-              "port": {
-                "title": "Port",
-                "type": "integer",
-                "required": true,
-                "default": "8123"
-              },
-              "path": {
-                "title": "Path",
-                "type": "string",
-                "required": true,
-                "default": "/api/webhook/"
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "Plugin name as displayed in the Homebridge log.",
+        "type": "string",
+        "required": true,
+        "default": "homebridge-leridian-dynamics"
+      },
+      "devices": {
+        "title": "Added Devices",
+        "required": true,
+        "type": "array",
+        "items": {
+          "name": "Device Config",
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "description": "The name of the accessory in HomeKit. For example, \"Hot Water Recirculation\" is On or Off",
+              "type": "string",
+              "required": true,
+              "default": "Hot Water Recirculation"
+            },
+            "deviceUid": {
+              "title": "Unique ID",
+              "description": "A unique ID assigned to this device.",
+              "type": "string",
+              "required": true,
+              "default": "123456789"
+            },
+            "controllerName": {
+              "title": "Controller Name",
+              "description": "The name of the controller as it appears in the \"Smart Recirc 32\" app.",
+              "type": "string",
+              "required": true,
+              "default": "SmartCirc"
+            },
+            "serverConfig": {
+              "title": "Server Configuration",
+              "description": "This is the configuration to use when listening to requests from the controller. This must match \"Webhook Outbound\" under Advanced Settings in the \"Smart Recirc 32 app\".",
+              "type": "object",
+              "properties": {          
+                "port": {
+                  "title": "Port",
+                  "type": "integer",
+                  "required": true,
+                  "default": "8123"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string",
+                  "required": true,
+                  "default": "/api/webhook/"
+                }
               }
             }
           }
