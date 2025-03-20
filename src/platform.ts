@@ -43,7 +43,7 @@ export class SmartRecirc32Platform implements DynamicPlatformPlugin {
    * It should be used to set up event handlers for characteristics and update respective values.
    */
   configureAccessory(accessory: PlatformAccessory) {
-    this.log.info('Loading accessory from cache:', accessory.displayName);
+    this.log.info('Loading accessory from cache:', accessory.displayName);    
 
     // Add the restored accessory to the accessories cache, so we can track if it has already been registered    
     this.accessories.set(accessory.UUID, accessory);
@@ -66,10 +66,31 @@ export class SmartRecirc32Platform implements DynamicPlatformPlugin {
       // Check to see if an accessory with the same uuid has already been registered and restored from
       // the cached devices we stored in the `configureAccessory` method above.
       const existingAccessory = this.accessories.get(uuid);
+      const minPollingSeconds = 5;
+      const maxPollingSeconds = 300;
 
       if (existingAccessory) {
         // the accessory already exists
         this.log.info('Restoring existing accessory from cache:', existingAccessory.displayName);
+
+        const requestedPolling = device.pollingInterval ?? 30; // Fallback default.
+        const clampedPolling = Math.min(Math.max(requestedPolling, minPollingSeconds), maxPollingSeconds);
+        const accessoryName = device.name;
+
+        if (requestedPolling !== clampedPolling) {
+          this.log.warn(
+            `${accessoryName} : Polling interval of ${requestedPolling} is out of range. Allowed range is ${minPollingSeconds}-${maxPollingSeconds} seconds.`);
+          
+          this.log.warn(`${accessoryName} : Polling interval clamped to ${clampedPolling} seconds.`);
+        }
+
+        existingAccessory.context.device = {
+          ...device,
+          pollingInterval: clampedPolling,
+        };
+
+        // Update the platform accessory in case changes were made to the accessory's context.
+        this.api.updatePlatformAccessories([existingAccessory]);
 
         // Create the accessory handler for the restored accessory
         // this is imported from `platformAccessory.ts`.
@@ -84,7 +105,22 @@ export class SmartRecirc32Platform implements DynamicPlatformPlugin {
 
         // Store a copy of the device object in the `accessory.context`.
         // The `context` property can be used to store any data about the accessory you may need.
-        accessory.context.device = device;
+
+        const requestedPolling = device.pollingInterval ?? 30; // Fallback default.
+        const clampedPolling = Math.min(Math.max(requestedPolling, minPollingSeconds), maxPollingSeconds);
+        const accessoryName = device.name;
+
+        if (requestedPolling !== clampedPolling) {
+          this.log.warn(
+            `${accessoryName} : Polling interval of ${requestedPolling} is out of range. Allowed range is ${minPollingSeconds}-${maxPollingSeconds} seconds.`);
+          
+          this.log.warn(`${accessoryName} : Polling interval clamped to ${clampedPolling} seconds.`);
+        }
+
+        accessory.context.device = {
+          ...device,
+          pollingInterval: clampedPolling,
+        };
 
         // Create the accessory handler for the newly created accessory
         // Imported from `platformAccessory.ts`.

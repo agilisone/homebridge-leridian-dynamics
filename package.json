@@ -2,7 +2,7 @@
   "name": "homebridge-leridian-dynamics",
   "displayName": "Homebridge Leridian Dynamics",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A homebridge plugin for the Smart Recirculation Control 32 by Leridian Dynamics.",
   "author": "agilisone@gmail.com",
   "license": "Apache-2.0",

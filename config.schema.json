@@ -43,6 +43,15 @@
               "required": true,
               "default": "SmartCirc"
             },
+            "pollingInterval": {
+              "title": "Polling Interval",
+              "description": "This is how often the accessory should check its status. This check is a fallback option in order to keep the accessory in sync with the controller. Defaults to 60 seconds.",
+              "type": "integer",
+              "required": true,
+              "minimum": 5,
+              "maximum": 300,
+              "default": "30"
+            },
             "serverConfig": {
               "title": "Server Configuration",
               "description": "This is the configuration to use when listening to requests from the controller. This must match \"Webhook Outbound\" under Advanced Settings in the \"Smart Recirc 32 app\".",
