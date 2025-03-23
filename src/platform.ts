@@ -57,6 +57,11 @@ export class SmartRecirc32Platform implements DynamicPlatformPlugin {
   registerDevices() {
     // There is no discovery taking place. Instead use the user-defined array in the platform config.
     const platformDevices = this.config.devices;
+
+    // Verify that there is at least one device to configure.
+    if (!this.config.devices || !Array.isArray(this.config.devices) || !this.config.devices.length) {
+      this.log.warn('No devices have been added to configure. Please verify that at least one device has been added to the plugin\'s configuration.');
+    }
     
     // Iterate over the discovered devices and register each one if it has not already been registered.
     for (const device of platformDevices) {

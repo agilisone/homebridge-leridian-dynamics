@@ -39,7 +39,7 @@ export class SmartRecirc32PlatformAccessory {
     const port = serverConfig.port;
     
     server.listen(port, () => {
-      this.platform.log.info(`${accessoryName} : Created HTTP server. Listening on port ${port}...`);
+      this.platform.log.info(`${accessoryName} : HTTP server listening on port ${port}`);
     });
 
     this.checkControllerStatus();
@@ -47,7 +47,7 @@ export class SmartRecirc32PlatformAccessory {
     // Set a timer to execute the checkStatus() function every minute.
     const pollingSeconds = this.accessory.context.device.pollingInterval as number;
     const pollingInterval = (pollingSeconds * 1000);
-    this.platform.log.info(`${accessoryName} : Polling the controller's status every ${pollingSeconds} seconds.`);
+    this.platform.log.info(`${accessoryName} : Polling status every ${pollingSeconds} seconds`);
     setInterval(this.checkControllerStatus.bind(this), pollingInterval);
   }
 
