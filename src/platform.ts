@@ -27,22 +27,22 @@ export class SmartRecirc32Platform implements DynamicPlatformPlugin {
 
     this.log.debug('Finished initializing platform:', PLUGIN_NAME);
 
+    // Validate plugin's configuration.
+    log.info('Validating plugin\'s configuration...');
+    const isValid = this.validateConfiguration();
+    
+    if (!isValid) {
+      log.error('Cannot continue with device registration.');
+
+      return;
+    }
+
     // When this event is fired it means Homebridge has restored all cached accessories from disk.
     // Dynamic Platform plugins should only register new accessories after this event was fired,
     // in order to ensure they weren't added to homebridge already. This event can also be used
     // to start discovery of new accessories.
     this.api.on('didFinishLaunching', () => {
       log.debug('Executed didFinishLaunching callback');
-
-      // Validate plugin's configuration.
-      log.info('Validating plugin\'s configuration...');
-      const isValid = this.validateConfiguration();
-      
-      if (!isValid) {
-        log.error('Cannot continue with device registration.');
-
-        return;
-      }
 
       // Register platform devices as accessories.
       this.registerDevices();
